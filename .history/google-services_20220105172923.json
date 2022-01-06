@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "975586407043",
+    "project_id": "krypto-1a924",
+    "storage_bucket": "krypto-1a924.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:975586407043:android:e107967dcaaf7e35a921b6",
+        "android_client_info": {
+          "package_name": "com.gc.circleapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "975586407043-9obkqr9umldo9dq27n3f02ia492fnlkm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA06B55K_0Sw2Km76Zd9pnRQi_jhHzYV3Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "975586407043-9obkqr9umldo9dq27n3f02ia492fnlkm.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "975586407043-mbeupk2u6ap3cdp642k562042gocnith.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "host.exp.exponent"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
