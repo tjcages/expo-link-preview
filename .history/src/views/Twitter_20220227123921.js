@@ -14,8 +14,6 @@ import ImageStack from "./ImageStack";
 import TwitterLogo_Blue from "../assets/twitter_logo_blue.svg";
 import TwitterLogo_White from "../assets/twitter_logo_white.svg";
 import LikeIcon from "../assets/twitter_like.svg";
-import ReplyIcon from "../assets/twitter_reply.svg";
-import RetweetIcon from "../assets/twitter_retweet.svg";
 
 const Twitter = (props) => {
   const [loading, setLoading] = useState(false);
@@ -24,22 +22,23 @@ const Twitter = (props) => {
   const secondary = useThemeColor({}, "secondary");
 
   useEffect(() => {
-    console.log("DATA")
-    console.log(props.data.url)
-    console.log(data)
-
     if (!loading && data === null) {
       setLoading(true);
-      getData(props.data.url);
+      getData(props.twitterURL);
     }
   });
+
+  function isValidUrl(text) {
+    var urlRegex =
+      /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
+    return text.replace(urlRegex, function (url) {
+      return "";
+    });
+  }
 
   const getData = async (twitterURL) => {
     var after_ = twitterURL.split("status/")[1];
     after_ = after_.substring(0, after_.indexOf("?"));
-
-    console.log("AFTER")
-    console.log(after_)
     try {
       const response = await fetch(
         `https://api.twitter.com/2/tweets/${after_}?expansions=attachments.media_keys,author_id&tweet.fields=attachments,created_at,public_metrics&user.fields=profile_image_url,url&media.fields=duration_ms,height,width,preview_image_url,type,url,alt_text`,
@@ -52,15 +51,13 @@ const Twitter = (props) => {
         }
       );
       const json = await response.json();
-      console.log("JSON")
-      console.log(json)
       setData(json);
     } catch (error) {
       console.log(error);
     }
   };
 
-  return data && (
+  return data && data.data ? (
     <Container style={styles.container}>
       {data.includes && data.includes.users.length > 0 && (
         <Container style={styles.logoContainer}>
@@ -94,25 +91,41 @@ const Twitter = (props) => {
         </Container>
       )}
       {data.data.text && <Copy style={{ flex: 1 }}>{data.data.text}</Copy>}
-      {/* {data.includes !== undefined &&
+      {data.includes !== undefined &&
         data.includes.media !== undefined &&
         data.includes.media.length > 0 && (
           <ImageStack media={data.includes.media} />
+          // <Image
+          //   style={[
+          //     styles.image,
+          //     {
+          //       backgroundColor: container,
+          //       aspectRatio:
+          //         data.includes.media[0].width / data.includes.media[0].height,
+          //     },
+          //   ]}
+          //   source={{
+          //     uri:
+          //       data.includes.media[0].type === "video"
+          //         ? data.includes.media[0].preview_image_url
+          //         : data.includes.media[0].url,
+          //   }}
+          // />
         )}
       {data.data.public_metrics && (
         <Container style={styles.actions}>
-          <Container style={styles.actionItem}>
+          {/* <Container style={styles.actionItem}>
             <ReplyIcon style={styles.actionIcon} color={secondary} />
             {data.data.public_metrics.reply_count !== 0 && (
               <Text>{data.data.public_metrics.reply_count}</Text>
             )}
-          </Container>
-          <Container style={styles.actionItem}>
+          </Container> */}
+          {/* <Container style={styles.actionItem}>
             <RetweetIcon style={styles.actionIcon} color={secondary} />
             {data.data.public_metrics.retweet_count !== 0 && (
               <Text>{data.data.public_metrics.retweet_count}</Text>
             )}
-          </Container>
+          </Container> */}
           <Container style={styles.actionItem}>
             <LikeIcon style={styles.actionIcon} color={secondary} />
             {data.data.public_metrics.like_count !== 0 && (
@@ -125,9 +138,11 @@ const Twitter = (props) => {
             </Text>
           )}
         </Container>
-      )} */}
+      )}
     </Container>
-  )
+  ) : (
+    <Container />
+  );
 };
 
 const styles = StyleSheet.create({

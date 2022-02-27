@@ -64,6 +64,7 @@ const LinkPreview = (props) => {
 
   return (
     <TouchableOpacity
+      style={{ marginLeft: 12, position: "relative" }}
       onPress={() => handleWebLink()}
     >
       {data && renderLink()}

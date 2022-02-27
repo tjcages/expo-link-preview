@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: 12,
     borderRadius: 12,
+    marginBottom: 6,
     borderWidth: 1,
   },
   profile: {
@@ -68,6 +69,7 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   preview: {
+    flex: 1,
     position: "relative",
     minHeight: 224,
     borderRadius: 6,

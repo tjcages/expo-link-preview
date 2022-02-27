@@ -1,6 +1,6 @@
 {
   "name": "expo-link-preview",
-  "version": "1.2.0",
+  "version": "1.1.0",
   "description": "Render URL links to either a web or Twitter preview",
   "main": "src/index.js",
   "scripts": {
@@ -37,8 +37,6 @@
   "dependencies": {
     "expo-web-browser": "^10.1.1",
     "javascript-time-ago": "^2.3.13",
-    "react-native-opengraph-kit": "^3.0.1",
-    "react-native-svg": "^12.1.1",
-    "react-native-svg-transformer": "^1.0.0"
+    "react-native-opengraph-kit": "^3.0.1"
   }
 }
