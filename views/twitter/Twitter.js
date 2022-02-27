@@ -13,8 +13,6 @@ import ImageStack from "./ImageStack";
 
 import TwitterLogo_Blue from "../../assets/icons/twitter_logo_blue.svg";
 import TwitterLogo_White from "../../assets/icons/twitter_logo_white.svg";
-// import ReplyIcon from "../../assets/icons/twitter_reply.svg";
-// import RetweetIcon from "../../assets/icons/twitter_retweet.svg";
 import LikeIcon from "../../assets/icons/twitter_like.svg";
 
 const Twitter = (props) => {

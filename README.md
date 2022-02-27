@@ -1,2 +1,2 @@
-# mood-board
-A wall to post all your favorite links
+# react-native-link-render
+Render URL links to either a web or Twitter preview 

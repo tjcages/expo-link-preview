@@ -5,6 +5,7 @@ import { WebView } from "react-native-webview";
 
 const Link = (props) => {
   const webviewRef = createRef();
+  console.log(props.data)
 
   const linkContainer = (children) => (
     <View style={styles.preview}>{children}</View>
@@ -12,20 +13,22 @@ const Link = (props) => {
 
   const renderLink = () => {
     return linkContainer(
-      props.linkData.image ? (
+      props.data.image ? (
         <Image
           style={{
+            flex: 1,
+            position: "relative",
             backgroundColor: "white",
             width: "100%",
-            height: "100%",
+            height: 400,
           }}
-          source={{ uri: props.linkData.image }}
+          source={{ uri: props.data.image }}
         />
       ) : (
         <WebView
           ref={webviewRef}
           mediaPlaybackRequiresUserAction={true}
-          source={{ uri: props.linkData.url }}
+          source={{ uri: props.data.url }}
           scrollEnabled={false}
           disabled={true}
           javaScriptEnabled={true}
@@ -41,11 +44,11 @@ const Link = (props) => {
     <Container style={styles.content} pointerEvents="none">
       {renderLink()}
       <View style={styles.previewInfo}>
-        {props.linkData.title && (
-          <Title style={styles.text} numberOfLines={2}>{props.linkData.title}</Title>
+        {props.data.title && (
+          <Title style={styles.text} numberOfLines={2}>{props.data.title}</Title>
         )}
-        {props.linkData.description && (
-          <Text style={styles.text} numberOfLines={2}>{props.linkData.description}</Text>
+        {props.data.description && (
+          <Text style={styles.text} numberOfLines={2}>{props.data.description}</Text>
         )}
       </View>
     </Container>
@@ -54,7 +57,6 @@ const Link = (props) => {
 
 const styles = StyleSheet.create({
   content: {
-    flexDirection: "column",
     paddingHorizontal: 12,
     borderRadius: 12,
     marginBottom: 6,
@@ -67,8 +69,8 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   preview: {
-    position: "relative",
     flex: 1,
+    position: "relative",
     minHeight: 224,
     borderRadius: 6,
     overflow: "hidden",
