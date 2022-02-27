@@ -1,0 +1,42 @@
+{
+  "name": "react-native-link-preview",
+  "version": "1.0.0",
+  "description": "Render URL links to either a web or Twitter preview",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjcages/react-native-link-render.git"
+  },
+  "keywords": [
+    "react-native",
+    "link",
+    "preview",
+    "render",
+    "react",
+    "native",
+    "expo",
+    "go",
+    "url",
+    "previewer",
+    "renderer"
+  ],
+  "author": "Tyler J. Cagle",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tjcages/react-native-link-render/issues"
+  },
+  "homepage": "https://github.com/tjcages/react-native-link-render#readme",
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-native": "^0.67.3",
+    "react-native-webview": "^11.17.2"
+  },
+  "dependencies": {
+    "expo-web-browser": "^10.1.1",
+    "javascript-time-ago": "^2.3.13",
+    "react-native-opengraph-kit": "^3.0.1"
+  }
+}
