@@ -66,9 +66,9 @@ Twitter previews will automatically be used if the OpenGraph response returns `s
 | Prop | Required? | Type | Description |
 | --- | --- | --- | ---------- |
 | twitterLogoColor | false | string | The tint color of the Twitter logo. Defaults to Twitter Blue. |
-| showLikes | false | bool | Enable/disbale the `Likes` counter. Defaults to `true`. |
-| showRetweets | false | bool | Enable/disbale the `Retweets` counter. Defaults to `true`. |
-| showReplies | false | bool | Enable/disbale the `Replies` counter. Defaults to `true`. |
+| showLikes | false | bool | Enable/disable the `Likes` counter. Defaults to `true`. |
+| showRetweets | false | bool | Enable/disable the `Retweets` counter. Defaults to `true`. |
+| showReplies | false | bool | Enable/disable the `Replies` counter. Defaults to `true`. |
 
 ## Color example
 Example:
