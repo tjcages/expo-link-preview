@@ -38,5 +38,29 @@
     "jest-expo": "~44.0.1",
     "react-test-renderer": "17.0.1"
   },
-  "private": true
+  "private": true,
+  "description": "Render URL links to either a web or Twitter preview",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tjcages/react-native-link-render.git"
+  },
+  "keywords": [
+    "react-native",
+    "link",
+    "preview",
+    "render",
+    "react",
+    "native",
+    "expo",
+    "go",
+    "url",
+    "previewer",
+    "renderer"
+  ],
+  "author": "tjcages",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tjcages/react-native-link-render/issues"
+  },
+  "homepage": "https://github.com/tjcages/react-native-link-render#readme"
 }
