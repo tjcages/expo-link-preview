@@ -59,6 +59,9 @@
   ],
   "author": "tjcages",
   "license": "ISC",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
   "bugs": {
     "url": "https://github.com/tjcages/react-native-link-render/issues"
   },
