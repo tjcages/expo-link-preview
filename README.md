@@ -1,7 +1,7 @@
 # expo-link-preview
 Render URL links for Web & Twitter previews
 
-![render web preview](https://uploads-ssl.webflow.com/5f162b0e0ce5746130d59063/621b0bfe86678f673850cb7a_Screen%20Shot%202022-02-26%20at%208.54.37%20PM.png)
+![render twitter preview](https://uploads-ssl.webflow.com/5f47fcf4fc81fecce371f46f/621c0ad206cdd4fe29a185c7_ezgif.com-gif-maker-4.gif)
 
 Built with `react-native` using `expo`.
 
@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
 
 ## Web
 Web previews will automatically use OpenGraph information to populate the preview. If an image is present, LinkPreview will default to that, otherwise show a non-interactive web view of the page.
+
+![render web preview](https://uploads-ssl.webflow.com/5f162b0e0ce5746130d59063/621b0bfe86678f673850cb7a_Screen%20Shot%202022-02-26%20at%208.54.37%20PM.png)
 
 ## Twitter
 Twitter previews will automatically be used if the OpenGraph response returns `site_name=Twitter`. The Twitter preview automatically adjusts to handle basic tweets and up to four images.
