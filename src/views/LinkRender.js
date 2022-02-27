@@ -1,11 +1,25 @@
-import React, { createRef } from "react";
-import { StyleSheet, Image } from "react-native";
-import { Text, View, Container, Title } from "../components/Themed";
+import React from "react";
+import { View, StyleSheet, Image } from "react-native";
+import { Text, Container, Title, useThemeColor } from "../components/Themed";
 import { WebView } from "react-native-webview";
 
 const Link = (props) => {
-  const webviewRef = createRef();
-  console.log(props.data)
+  // standard, themed colors to be used
+  const container = useThemeColor({}, "container");
+  const primary = useThemeColor({}, "primary");
+  const secondary = useThemeColor({}, "secondary");
+  const divider = useThemeColor({}, "divider");
+
+  const {
+    textColor = secondary,
+    titleColor = primary,
+    containerColor = container,
+    borderColor = divider,
+    twitterLogoColor,
+    link,
+    onPress,
+    ...otherProps
+  } = props;
 
   const linkContainer = (children) => (
     <View style={styles.preview}>{children}</View>
@@ -18,7 +32,7 @@ const Link = (props) => {
           style={{
             flex: 1,
             position: "relative",
-            backgroundColor: "white",
+            backgroundColor: containerColor,
             width: "100%",
             height: 400,
           }}
@@ -26,29 +40,32 @@ const Link = (props) => {
         />
       ) : (
         <WebView
-          ref={webviewRef}
           mediaPlaybackRequiresUserAction={true}
           source={{ uri: props.data.url }}
           scrollEnabled={false}
           disabled={true}
-          javaScriptEnabled={true}
-          domStorageEnabled={true}
-          originWhitelist={["*"]}
-          onMessage={() => {}}
         />
       )
     );
   };
 
   return (
-    <Container style={styles.content} pointerEvents="none">
+    <Container
+      style={[styles.content, { backgroundColor: containerColor, borderColor }]}
+      pointerEvents="none"
+      {...otherProps}
+    >
       {renderLink()}
       <View style={styles.previewInfo}>
         {props.data.title && (
-          <Title style={styles.text} numberOfLines={2}>{props.data.title}</Title>
+          <Title style={[styles.text, { color: titleColor }]} numberOfLines={2}>
+            {props.data.title}
+          </Title>
         )}
         {props.data.description && (
-          <Text style={styles.text} numberOfLines={2}>{props.data.description}</Text>
+          <Text style={[styles.text, { color: textColor }]} numberOfLines={2}>
+            {props.data.description}
+          </Text>
         )}
       </View>
     </Container>

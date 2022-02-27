@@ -3,7 +3,6 @@ import { StyleSheet, Image } from "react-native";
 import { View, Container } from "../components/Themed";
 
 const ImageStack = (props) => {
-  console.log(props.media);
   const aspectArray = props.media.map((media) => media.width / media.height);
   const aspectRatio = Math.max(...aspectArray);
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Image } from "react-native";
+import { View, StyleSheet, Image } from "react-native";
 import {
   Container,
   Title,
@@ -11,23 +11,31 @@ import { timeAgo } from "../utils";
 
 import ImageStack from "./ImageStack";
 
-import TwitterLogo_Blue from "../assets/twitter_logo_blue.svg";
-import TwitterLogo_White from "../assets/twitter_logo_white.svg";
-import LikeIcon from "../assets/twitter_like.svg";
-import ReplyIcon from "../assets/twitter_reply.svg";
-import RetweetIcon from "../assets/twitter_retweet.svg";
-
 const Twitter = (props) => {
+  // standard, themed colors to be used
+  const container = useThemeColor({}, "container");
+  const primary = useThemeColor({}, "primary");
+  const secondary = useThemeColor({}, "secondary");
+  const divider = useThemeColor({}, "divider");
+
+  const {
+    textColor = secondary,
+    titleColor = primary,
+    containerColor = container,
+    borderColor = divider,
+    twitterLogoColor,
+    link,
+    onPress,
+    showLikes = true,
+    showReplies = true,
+    showRetweets = true,
+    ...otherProps
+  } = props;
+
   const [loading, setLoading] = useState(false);
   const [data, setData] = useState(null);
 
-  const secondary = useThemeColor({}, "secondary");
-
   useEffect(() => {
-    console.log("DATA")
-    console.log(props.data.url)
-    console.log(data)
-
     if (!loading && data === null) {
       setLoading(true);
       getData(props.data.url);
@@ -37,9 +45,6 @@ const Twitter = (props) => {
   const getData = async (twitterURL) => {
     var after_ = twitterURL.split("status/")[1];
     after_ = after_.substring(0, after_.indexOf("?"));
-
-    console.log("AFTER")
-    console.log(after_)
     try {
       const response = await fetch(
         `https://api.twitter.com/2/tweets/${after_}?expansions=attachments.media_keys,author_id&tweet.fields=attachments,created_at,public_metrics&user.fields=profile_image_url,url&media.fields=duration_ms,height,width,preview_image_url,type,url,alt_text`,
@@ -52,88 +57,117 @@ const Twitter = (props) => {
         }
       );
       const json = await response.json();
-      console.log("JSON")
-      console.log(json)
       setData(json);
     } catch (error) {
       console.log(error);
     }
   };
 
-  return data && (
-    <Container style={styles.container}>
-      {data.includes && data.includes.users.length > 0 && (
-        <Container style={styles.logoContainer}>
-          <Container style={styles.contentHeader}>
+  return (
+    data && (
+      <Container
+        style={[
+          styles.container,
+          { backgroundColor: containerColor, borderColor: borderColor },
+        ]}
+        {...otherProps}
+      >
+        {data.includes && data.includes.users.length > 0 && (
+          <View style={styles.logoContainer}>
+            <View style={styles.contentHeader}>
+              <Image
+                style={styles.profile}
+                source={{
+                  uri: data.includes.users[0].profile_image_url.replace(
+                    /_normal\./,
+                    "_bigger."
+                  ),
+                }}
+              />
+              <View style={styles.userInfo}>
+                <Title
+                  style={{
+                    fontWeight: "bold",
+                    fontSize: 18,
+                    color: titleColor,
+                  }}
+                >
+                  {data.includes.users[0].name}
+                </Title>
+                <Text style={{ fontSize: 14, color: textColor }}>
+                  @{data.includes.users[0].username}
+                </Text>
+              </View>
+            </View>
             <Image
-              style={styles.profile}
-              source={{
-                uri: data.includes.users[0].profile_image_url.replace(
-                  /_normal\./,
-                  "_bigger."
-                ),
-              }}
+              source={require("../assets/twitter_logo_blue.png")}
+              style={{ width: 24, height: 24, tintColor: twitterLogoColor }}
             />
-            <Container style={styles.userInfo}>
-              <Title style={{ fontWeight: "bold", fontSize: 18 }}>
-                {data.includes.users[0].name}
-              </Title>
-              <Text style={{ fontSize: 14 }}>
-                @{data.includes.users[0].username}
-              </Text>
-            </Container>
-          </Container>
-          {props.theme === "dark" ? (
-            <TwitterLogo_White
-              style={{ width: 24, height: 24 }}
-              color={secondary}
-            />
-          ) : (
-            <TwitterLogo_Blue style={{ width: 24, height: 24 }} />
-          )}
-        </Container>
-      )}
-      {data.data.text && <Copy style={{ flex: 1 }}>{data.data.text}</Copy>}
-      {/* {data.includes !== undefined &&
-        data.includes.media !== undefined &&
-        data.includes.media.length > 0 && (
-          <ImageStack media={data.includes.media} />
+          </View>
         )}
-      {data.data.public_metrics && (
-        <Container style={styles.actions}>
-          <Container style={styles.actionItem}>
-            <ReplyIcon style={styles.actionIcon} color={secondary} />
-            {data.data.public_metrics.reply_count !== 0 && (
-              <Text>{data.data.public_metrics.reply_count}</Text>
-            )}
-          </Container>
-          <Container style={styles.actionItem}>
-            <RetweetIcon style={styles.actionIcon} color={secondary} />
-            {data.data.public_metrics.retweet_count !== 0 && (
-              <Text>{data.data.public_metrics.retweet_count}</Text>
-            )}
-          </Container>
-          <Container style={styles.actionItem}>
-            <LikeIcon style={styles.actionIcon} color={secondary} />
-            {data.data.public_metrics.like_count !== 0 && (
-              <Text>{data.data.public_metrics.like_count}</Text>
-            )}
-          </Container>
-          {data.data.created_at && (
-            <Text style={{ marginVertical: 6 }}>
-              {timeAgo.format(new Date(data.data.created_at), "round-minute")}
-            </Text>
+        {data.data.text && (
+          <Copy style={{ color: textColor }}>{data.data.text}</Copy>
+        )}
+        {data.includes !== undefined &&
+          data.includes.media !== undefined &&
+          data.includes.media.length > 0 && (
+            <ImageStack media={data.includes.media} />
           )}
-        </Container>
-      )} */}
-    </Container>
-  )
+        {data.data.public_metrics && (
+          <View style={styles.actions}>
+            {showReplies && (
+              <View style={styles.actionItem}>
+                <Image
+                  source={require("../assets/twitter_reply.png")}
+                  style={[styles.actionIcon, { tintColor: textColor }]}
+                />
+                {data.data.public_metrics.reply_count !== 0 && (
+                  <Text style={{ color: textColor }}>
+                    {data.data.public_metrics.reply_count}
+                  </Text>
+                )}
+              </View>
+            )}
+            {showRetweets && (
+              <View style={styles.actionItem}>
+                <Image
+                  source={require("../assets/twitter_retweet.png")}
+                  style={[styles.actionIcon, { tintColor: textColor }]}
+                />
+                {data.data.public_metrics.retweet_count !== 0 && (
+                  <Text style={{ color: textColor }}>
+                    {data.data.public_metrics.retweet_count}
+                  </Text>
+                )}
+              </View>
+            )}
+            {showLikes && (
+              <View style={styles.actionItem}>
+                <Image
+                  source={require("../assets/twitter_like.png")}
+                  style={[styles.actionIcon, { tintColor: textColor }]}
+                />
+                {data.data.public_metrics.like_count !== 0 && (
+                  <Text style={{ color: textColor }}>
+                    {data.data.public_metrics.like_count}
+                  </Text>
+                )}
+              </View>
+            )}
+            {data.data.created_at && (
+              <Text style={{ marginVertical: 6, color: textColor }}>
+                {timeAgo.format(new Date(data.data.created_at), "round-minute")}
+              </Text>
+            )}
+          </View>
+        )}
+      </Container>
+    )
+  );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    position: "relative",
     borderRadius: 12,
     overflow: "hidden",
     borderWidth: 1,

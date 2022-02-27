@@ -1,19 +1,5 @@
-// import React from "react";
-// import { View, Text } from "react-native";
-
-// const LinkPreview = (props) => {
-//   return (
-//     <View style={{ backgroundColor: "red" }}>
-//       <Text>Hello world!!!!</Text>
-//     </View>
-//   );
-// };
-
-// export default LinkPreview
-
 import React, { useState, useEffect } from "react";
 import { TouchableOpacity } from "react-native";
-import * as WebBrowser from "expo-web-browser";
 import { OpenGraphParser } from "react-native-opengraph-kit";
 
 import LinkRender from "./views/LinkRender";
@@ -52,20 +38,25 @@ const LinkPreview = (props) => {
 
   const renderLink = () => {
     if (data.site_name === "Twitter") {
-      return <Twitter {...props} twitterURL={data.url} />;
+      return (
+        <Twitter
+          {...props}
+          data={data}
+          containerColor={props.containerColor}
+        />
+      );
     } else {
-      return <LinkRender {...props} data={data} />;
+      return (
+        <LinkRender
+          {...props}
+          data={data}
+        />
+      );
     }
   };
 
-  const handleWebLink = () => {
-    WebBrowser.openBrowserAsync(data.url);
-  };
-
   return (
-    <TouchableOpacity
-      onPress={() => handleWebLink()}
-    >
+    <TouchableOpacity onPress={props.onPress}>
       {data && renderLink()}
     </TouchableOpacity>
   );
