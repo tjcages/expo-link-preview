@@ -100,4 +100,4 @@ const styles = StyleSheet.create({
 ```
 ![web color render](https://uploads-ssl.webflow.com/5f162b0e0ce5746130d59063/621bfecb3feece9e668ee9fe_Screen%20Shot%202022-02-27%20at%203.25.42%20PM.png)
 
-Built by Tyler J. ✌️
+Built by [Tyler J.](https://tylerj.me) ✌️ 
