@@ -24,7 +24,7 @@
     "renderer"
   ],
   "author": "Tyler J. Cagle",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/tjcages/expo-link-preview/issues"
   },
