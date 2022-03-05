@@ -2,7 +2,7 @@
  * Learn more about Light and Dark modes:
  * https://docs.expo.io/guides/color-schemes/
  */
-
+import react from 'react';
  import {
   Text as DefaultText,
   View as DefaultView,
